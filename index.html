@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0/css/all.css"
+    /><!--載入fontawesome可以使用i tag 圖案特性跟文字一樣可以調整顏色-->
+    <link rel="stylesheet" href="list.css">
+  </head>
+  <body>
+    <div id="app">
+      <div class="bars">
+        <h1 :class="all"  v-on:click="hiddensAll"><a href="#" >清單總覽</a> </h1>
+        <h1 :class="yet" v-on:click="hiddensYet"><a href="#">未完成</a></h1>
+        <h1 :class="already" v-on:click="hiddensAlready"><a href="#">已完成</a></h1>
+      </div>
+      <div class="wrap">
+        <div class="todos" :class="unshowone">
+          <ul>
+            <li v-for="(item,i) in sortLists" :id="item.id" class="lists">
+              <div v-if="item.justify === ''">
+                <p
+                  style="
+                    display: inline-block;
+                    width: 450px;
+                    word-break: break-all;
+                  "
+                >
+                  <input type="checkbox" v-model="item.checked" name="" />
+                  {{item.value}}<span
+                    style="margin-left: 30px"
+                    v-if="item.date !== ''"
+                    >期限</span
+                  >
+                  {{item.date}}
+                </p>
+                <p style="display: inline-block; width: 100px">
+                  <a href="#" ><i
+                    class="far fa-edit"
+                    v-on:dblclick="editAll"
+                    :id="item.id"
+                  ></i
+                  ></a>
+                  <a href="#" >
+                    <i
+                    :id="item.id"
+                    class="far fa-trash-alt"
+                    v-on:dblclick="removeAll"
+                  ></i>
+                  </a>
+                  
+                </p>
+              </div>
+              <input
+                type="text"
+                name=""
+                :id="item.id"
+                v-model="item.text"
+                v-if="item.justify !== ''"
+                v-on:keyup.enter="editValue"
+              />
+              <input
+                type="date"
+                name=""
+                :id="item.id"
+                v-model="item.date"
+                v-if="item.justify !== ''"
+                v-on:keyup.enter="editDate"
+              />
+            </li>
+          </ul>
+
+          <hr />
+
+          <div class="controlbtn">
+            <input
+              v-model="text"
+              type="text"
+              name=""
+              v-on:keyup.enter="submit"
+              id="memo"
+              placeholder="請輸入文字"
+            />
+            
+            <input v-on:click="submit" type="button" value="新增" />
+            <div class="dateInput"><span>期限</span><input type="date" v-model="date" name="" id=""></div>           
+          </div>
+        </div>
+        <div class="nevers" :class="unshowtwo">
+          <ul>
+            <li v-for="(item,i) in yetItem" :id="item.id" class="yetItem">
+              <div v-if="item.justify === ''">
+                <p
+                  style="
+                    display: inline-block;
+                    width: 450px;
+                    word-break: break-all;
+                  "
+                >
+                  {{item.value}}
+                  <span style="margin-left: 30px" v-if="item.date !== ''"
+                    >期限</span
+                  >{{item.date}}
+                </p>
+                <p style="display: inline-block; width: 100px">
+                  <a href="#" >
+                    <i
+                    class="far fa-edit"
+                    v-on:dblclick="editYet"
+                    :id="item.id"
+                  ></i>
+                  </a>
+                  <a href="#" >
+                    <i
+                    :id="item.id"
+                    class="far fa-trash-alt"
+                    v-on:dblclick="removeYet"
+                  ></i>
+                  </a>
+                  
+                </p>
+              </div>
+              <input
+                type="text"
+                name=""
+                :id="item.id"
+                v-model="item.text"
+                v-if="item.justify !== ''"
+                v-on:keyup.enter="editValueYet"
+              />
+              <input
+                type="date"
+                name=""
+                :id="item.id"
+                v-model="item.date"
+                v-if="item.justify !== ''"
+                v-on:keyup.enter="editDateYet"
+              />
+            </li>
+          </ul>
+          <hr />
+        </div>
+        <div class="compeleteds" :class="unshowthree">
+          <ul>
+            <li
+              v-for="(item,i) in alreadyItem"
+              :id="item.id"
+              class="alreadyItem"
+            >
+              <div v-if="item.justify === ''">
+                <p
+                  style="
+                    display: inline-block;
+                    width: 450px;
+                    word-break: break-all;
+                  "
+                >
+                  {{item.value}}
+                  <span style="margin-left: 30px" v-if="item.date !== ''"
+                    >期限</span
+                  >{{item.date}}
+                </p>
+                <p style="display: inline-block; width: 100px">
+                  <a href="#" >
+                    <i
+                    :id="item.id"
+                    class="far fa-trash-alt"
+                    v-on:dblclick="removeAll"
+                  ></i>
+                  </a>
+                  
+                </p>
+              </div>
+            </li>
+          </ul>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.common.dev.js"></script><!--載入vue框架-->
+    <script src="list.js"></script>
+  </body>
+</html>
