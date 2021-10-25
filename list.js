@@ -298,6 +298,7 @@ var vm = new Vue({
       }
     },
     mounted() {
+      this.all = "bgc-light";
       var self = this;
       function timeYet() {
         var myDate = new Date();
